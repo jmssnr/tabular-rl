@@ -17,8 +17,12 @@ export function useRLAgent<State extends { position: Position }>(
     state: start,
   };
 
-  return useAnimation(initial, (prev) => {
-    const result = algorithm.current.next();
-    return result.done ? prev : result.value;
-  });
+  return useAnimation(
+    initial,
+    (prev) => {
+      const result = algorithm.current.next();
+      return result.done ? prev : result.value;
+    },
+    50,
+  );
 }

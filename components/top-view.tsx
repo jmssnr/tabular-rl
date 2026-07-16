@@ -10,6 +10,7 @@ const cellStyle: Partial<Record<CellKind, string>> = {
   obstacle: "fill-gray-300 stroke-gray-400",
   terminal: "fill-teal-300 stroke-teal-400",
   pickup: "fill-amber-300 stroke-amber-400",
+  machine: "fill-red-300 stroke-red-400",
 };
 
 const TopView = <State extends { position: Position }>(props: {
