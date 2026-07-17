@@ -11,7 +11,7 @@ export function useOnlineLearning<State extends GridState>(
   environment: Environment<State>,
   update: ValueUpdate<State>,
   config: Partial<LearningConfig> = {},
-  throttle = 50,
+  throttle = 20,
 ) {
   const agent = useRef(
     learning(environment, startingState, new QTable(), update, config),
