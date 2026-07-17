@@ -3,9 +3,9 @@ import { GridState } from "@/core/dynamics/types";
 import { addsDefault } from "@/core/dynamics/utils";
 import { epsilonGreedy } from "@/core/rl/policies";
 import { QTable } from "@/core/rl/q-table";
-import { ValueUpdate } from "@/core/rl/types";
+import { LearningConfig, ValueUpdate } from "@/core/rl/types";
 
-const DEFAULTS = {
+const DEFAULTS: LearningConfig = {
   epsilon: 0.1,
   gamma: 0.95,
   alpha: 0.1,
@@ -14,14 +14,12 @@ const DEFAULTS = {
   maxTrajectoryLength: Infinity,
 };
 
-type Config = Partial<typeof DEFAULTS>;
-
 export function* learning<State extends GridState>(
   environment: Environment<State>,
   initial: State,
   Q: QTable<State>,
   update: ValueUpdate<State>,
-  config: Config = {},
+  config: Partial<LearningConfig> = {},
 ) {
   const options = addsDefault(config, DEFAULTS);
   const policy = epsilonGreedy<State>(Q, options.epsilon);

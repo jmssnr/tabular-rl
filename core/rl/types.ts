@@ -15,3 +15,12 @@ export type UpdateContext<State> = {
 };
 
 export type ValueUpdate<State> = (ctx: UpdateContext<State>) => void;
+
+export type LearningConfig = {
+  epsilon: number;
+  gamma: number;
+  alpha: number;
+  numEpisodes: number;
+  maxStepsPerEpisode: number;
+  maxTrajectoryLength: number;
+};
