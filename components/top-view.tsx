@@ -1,5 +1,6 @@
-import { GridWorld } from "@/core/environments/grid-world";
-import { CellKind, Position } from "@/core/types";
+import { Environment } from "@/core/dynamics/environment";
+import { GridState } from "@/core/dynamics/types";
+import { CellKind } from "@/core/types";
 import { range } from "d3-array";
 import { line } from "d3-shape";
 
@@ -13,24 +14,24 @@ const cellStyle: Partial<Record<CellKind, string>> = {
   machine: "fill-red-300 stroke-red-400",
 };
 
-const TopView = <State extends { position: Position }>(props: {
+const TopView = <State extends GridState>(props: {
   width: number;
-  world: GridWorld<State>;
+  world: Environment<State>;
   state: State;
   trajectory: Array<State>;
   padding?: number;
 }) => {
   const { width, world, state, trajectory, padding = DEFAULT_PADDING } = props;
-  const cellSize = width / world.ncols;
-  const height = cellSize * world.nrows;
+  const cellSize = width / world.grid.ncols;
+  const height = cellSize * world.grid.nrows;
 
   const linePath = line<State>()
     .x((state) => state.position[1] * cellSize + cellSize / 2)
     .y((state) => state.position[0] * cellSize + cellSize / 2);
 
-  const cells = range(world.nrows).map((row) =>
-    range(world.ncols).map((col) => {
-      const cell = world.getCell([row, col]);
+  const cells = range(world.grid.nrows).map((row) =>
+    range(world.grid.ncols).map((col) => {
+      const cell = world.grid.getCell([row, col]);
 
       return (
         <rect

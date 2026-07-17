@@ -61,4 +61,6 @@ export function* learning<State extends GridState>(
       action = actionPrime;
     }
   }
+
+  return Q;
 }

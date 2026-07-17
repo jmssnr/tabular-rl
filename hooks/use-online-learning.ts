@@ -10,7 +10,7 @@ export function useOnlineLearning<State extends GridState>(
   startingState: State,
   environment: Environment<State>,
   update: ValueUpdate<State>,
-  config: Partial<LearningConfig>,
+  config: Partial<LearningConfig> = {},
   throttle = 50,
 ) {
   const agent = useRef(
