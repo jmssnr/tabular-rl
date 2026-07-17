@@ -16,12 +16,17 @@ export class Environment<State extends GridState> {
   cellTransitions: CellTransitions<State>;
   globalTransitions: GlobalTransitions<State>;
 
-  constructor(
-    grid: Grid,
-    cellTransitions: CellTransitions<State>,
-    globalTransitions: GlobalTransitions<State>,
-    actions?: Array<Action>,
-  ) {
+  constructor({
+    grid,
+    cellTransitions,
+    globalTransitions,
+    actions,
+  }: {
+    grid: Grid;
+    cellTransitions: CellTransitions<State>;
+    globalTransitions: GlobalTransitions<State>;
+    actions?: Array<Action>;
+  }) {
     this.grid = grid;
     this.cellTransitions = cellTransitions;
     this.globalTransitions = globalTransitions;
