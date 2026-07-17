@@ -4,12 +4,12 @@ import TopView from "@/components/top-view";
 import { MazeState } from "@/core/dynamics/worlds/maze";
 import { LARGE_MAZE_WORLD } from "@/core/examples/large-maze";
 import { dynaQ } from "@/core/rl/updates/dyna-q";
-import { useOfflineLearning } from "@/hooks/use-offline-learning";
+import { useOnlineLearning } from "@/hooks/use-online-learning";
 
 export default function Home() {
   const world = LARGE_MAZE_WORLD;
   const initialState: MazeState = { position: [1, 1] };
-  const result = useOfflineLearning(
+  const result = useOnlineLearning(
     initialState,
     world,
     dynaQ({ numPlanningSteps: 20 }),
