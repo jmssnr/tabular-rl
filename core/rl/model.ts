@@ -1,14 +1,14 @@
+import { encodeState, encodeStateAction } from "@/core/rl/encoding";
+
 export class Model<State> {
   entries: Map<string, { reward: number; statePrime: State }>;
   keys: Array<string>;
+  predecessors: Map<string, Set<string>>;
 
   constructor() {
     this.entries = new Map();
     this.keys = [];
-  }
-
-  private encode(state: State, action: number) {
-    return `${JSON.stringify(state)}|${action}`;
+    this.predecessors = new Map();
   }
 
   private decode(key: string): { state: State; action: number } {
@@ -20,9 +20,30 @@ export class Model<State> {
   }
 
   record(state: State, action: number, reward: number, statePrime: State) {
-    const key = this.encode(state, action);
+    const key = encodeStateAction(state, action);
     if (!this.entries.has(key)) this.keys.push(key);
     this.entries.set(key, { reward, statePrime });
+
+    const statePrimeKey = encodeState(statePrime);
+    let predecessors = this.predecessors.get(statePrimeKey);
+    if (!predecessors) {
+      predecessors = new Set();
+      this.predecessors.set(statePrimeKey, predecessors);
+    }
+    predecessors.add(key);
+  }
+
+  get(state: State, action: number) {
+    return this.entries.get(encodeStateAction(state, action));
+  }
+
+  predecessorsOf(state: State) {
+    const set = this.predecessors.get(encodeState(state));
+    if (!set) return [];
+    return [...set].map((key) => {
+      const { state, action } = this.decode(key);
+      return { state, action, reward: this.entries.get(key)!.reward };
+    });
   }
 
   sample() {

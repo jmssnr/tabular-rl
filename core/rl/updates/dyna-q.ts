@@ -14,8 +14,6 @@ export function dynaQ<State>({
     qUpdate(ctx);
     model.record(ctx.state, ctx.action, ctx.reward, ctx.statePrime);
 
-    // add record to model
-
     for (let i = 0; i < numPlanningSteps; i++) {
       const sample = model.sample();
       if (!sample) break;

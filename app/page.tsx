@@ -2,10 +2,8 @@
 
 import TopView from "@/components/top-view";
 import { DeliveryState } from "@/core/dynamics/worlds/delivery";
-import { MazeState } from "@/core/dynamics/worlds/maze";
 import { LARGE_DELIVERY_WORLD } from "@/core/examples/large-delivery-maze";
-import { LARGE_MAZE_WORLD } from "@/core/examples/large-maze";
-import { dynaQ } from "@/core/rl/updates/dyna-q";
+import { prioritizedSweeping } from "@/core/rl/updates/prioritized-sweeping";
 import { useOnlineLearning } from "@/hooks/use-online-learning";
 
 export default function Home() {
@@ -14,7 +12,7 @@ export default function Home() {
   const result = useOnlineLearning(
     initialState,
     world,
-    dynaQ({ numPlanningSteps: 20 }),
+    prioritizedSweeping({ numPlanningSteps: 50, theta: 0.1 }),
   );
 
   return (
