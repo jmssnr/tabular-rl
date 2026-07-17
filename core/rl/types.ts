@@ -1,4 +1,4 @@
-import { QTable } from "@/core/types";
+import { QTable } from "@/core/rl/q-table";
 
 export type Policy<State> = (state: State) => number;
 

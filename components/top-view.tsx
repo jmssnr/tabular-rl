@@ -1,17 +1,16 @@
 import { Environment } from "@/core/dynamics/environment";
-import { GridState } from "@/core/dynamics/types";
-import { CellKind } from "@/core/types";
+import { Cell, GridState } from "@/core/dynamics/types";
+
 import { range } from "d3-array";
 import { line } from "d3-shape";
 
 const DEFAULT_PADDING = 2;
 
-const cellStyle: Partial<Record<CellKind, string>> = {
+const cellStyle: Partial<Record<Cell["kind"], string>> = {
   empty: "fill-gray-100 stroke-gray-200",
   obstacle: "fill-gray-300 stroke-gray-400",
   terminal: "fill-teal-300 stroke-teal-400",
   pickup: "fill-amber-300 stroke-amber-400",
-  machine: "fill-red-300 stroke-red-400",
 };
 
 const TopView = <State extends GridState>(props: {

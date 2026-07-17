@@ -1,5 +1,5 @@
+import { QTable } from "@/core/rl/q-table";
 import { Policy } from "@/core/rl/types";
-import { QTable } from "@/core/types";
 
 export function greedy<State>(Q: QTable<State>): Policy<State> {
   return (state) => Q.argmax(state);
