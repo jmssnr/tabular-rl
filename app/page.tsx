@@ -1,16 +1,19 @@
 "use client";
 
 import TopView from "@/components/top-view";
-import { GridState } from "@/core/dynamics/types";
-import { SMALL_MAZE_WORLD } from "@/core/examples/small-maze";
-import { qLearning } from "@/core/rl/updates/q-learning";
+import { MazeState } from "@/core/dynamics/worlds/maze";
+import { LARGE_MAZE_WORLD } from "@/core/examples/large-maze";
+import { dynaQ } from "@/core/rl/updates/dyna-q";
 import { useOfflineLearning } from "@/hooks/use-offline-learning";
-import { useOnlineLearning } from "@/hooks/use-online-learning";
 
 export default function Home() {
-  const world = SMALL_MAZE_WORLD;
-  const initialState: GridState = { position: [0, 0] };
-  const result = useOfflineLearning(initialState, world, qLearning());
+  const world = LARGE_MAZE_WORLD;
+  const initialState: MazeState = { position: [1, 1] };
+  const result = useOfflineLearning(
+    initialState,
+    world,
+    dynaQ({ numPlanningSteps: 20 }),
+  );
 
   return (
     <main className="w-screen h-screen grid place-content-center">
