@@ -1,11 +1,12 @@
+import { ACTIONFOUR } from "@/core/dynamics/actions";
 import { range } from "d3-array";
 
 export class QTable<State> {
   entries: Map<string, number[]>;
   numActions: number;
 
-  constructor(numActions: number) {
-    this.numActions = numActions;
+  constructor(numActions?: number) {
+    this.numActions = numActions ?? ACTIONFOUR.length;
     this.entries = new Map();
   }
 
